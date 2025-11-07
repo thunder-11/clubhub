@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClubHub - Your Campus Event Central</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+     <section>
+        <span class="overlay"></span>
+        <div class="modal-box">
+            <i class="fa-regular fa-circle-check"></i>
+            <h2 id="message">Registered successfully</h2>
+
+            <div class="buttons">
+                <button class="close-btn" onclick="exitModal()">Ok</button>
+            </div>
+        </div>
+    </section>
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="gradient-text" style="font-size: 1.875rem; font-weight: 700;">ClubHub</a>
+            <div class="nav-links">
+                <a class="nav-link">Home</a>
+                <a onclick="window.location.href = 'events.html'" class="nav-link">Events</a>
+                <a href="#clubs" class="nav-link">Clubs</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#leaderboard" class="nav-link">Winners</a>
+            </div>
+            <div class="profile-section">
+                <div class="sign">
+                    <a href="login.html" class="custom-button" style="background-color: #4f46e5;">
+                        Login
+                    </a>
+                </div>
+            </div>
+            <button id="mobile-menu-button" class="mobile-menu-button">
+                <i data-lucide="menu"></i>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="mobile-menu">
+
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="home">
+            <h1>Discover, Engage, <span class="gradient-text">Excel.</span></h1>
+            <p>Your central hub for all club activities, workshops, and events. Dive into a vibrant campus community and
+                never miss an opportunity.</p>
+            <a class="hero-button" onclick="fun(event)">Explore Upcoming Events</a>
+        </section>
+
+        <section id="events" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Upcoming Events & Workshops</h2>
+                <p class="section-subtitle">Stay ahead of the curve. Here's what's happening on campus soon.</p>
+            </div>
+            <div id="events-container" class="grid-container grid-container-3-col"></div>
+            <div class="all-events">
+                <button id="all-events" class="btn" onclick="window.location.href = 'events.html'">View All Events <span class="arrow" style="display: inline-block;" data-lucide="arrow-right"></span></button>
+                </div>
+        </section>
+
+        <section id="gallery" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Event Gallery</h2>
+                <p class="section-subtitle">Capturing moments that inspire and connect</p>
+            </div>
+            <div class="photo-grid">
+                <div class="gallery-item"><img src="./src/photo1.jpg" alt="Event 1"></div>
+                <div class="gallery-item"><img src="./src/photo2.jpg" alt="Hackathon"></div>
+                <div class="gallery-item"><img src="./src/photo3.jpg" alt="Workshop"></div>
+                <div class="gallery-item"><img src="./src/photo4.jpg" alt="Winners"></div>
+                <div class="gallery-item"><img src="./src/photo5.jpg" alt="Projects"></div>
+                <div class="gallery-item"><img src="./src/photo6.jpg" alt="Teamwork"></div>
+                <div class="gallery-item"><img src="./src/photo7.jpg" alt="Coding"></div>
+                <div class="gallery-item"><img src="./src/photo8.jpg" alt="Innovate"></div>
+                <div class="gallery-item"><img src="./src/photo9.jpg" alt="Community"></div>
+                <div class="gallery-item"><img src="./src/photo10.jpg" alt="Fun"></div>
+            </div>
+        </section>
+
+        <section id="connect" class="section connect-section">
+            <div class="section-header">
+                <h2 class="section-title">Connect now!</h2>
+                <p class="section-subtitle">This is all you need to know</p>
+            </div>
+            <div class="connect-box">
+                <!-- Placeholder for additional info -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <h3 class="gradient-text" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">ClubHub</h3>
+                <p style="color: #94a3b8;">Connecting students, fostering talent, and creating memories.</p>
+            </div>
+            <div>
+                <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Quick Links</h4>
+                <ul style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li><a href="#events" class="nav-link" style="color: #94a3b8;">Upcoming Events</a></li>
+                    <li><a href="#clubs" class="nav-link" style="color: #94a3b8;">Find a Club</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Follow Us</h4>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#" class="nav-link" style="color: #94a3b8;"><i data-lucide="twitter"></i></a>
+                    <a href="#" class="nav-link" style="color: #94a3b8;"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="nav-link" style="color: #94a3b8;"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div style="border-top: 1px solid #1e293b; text-align: center; padding: 1.5rem 0;">
+            <p style="color: #64748b;">&copy; 2025 ClubHub. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="all-news-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="section-header" style="margin-bottom: 1.5rem;">
+                <h2 class="section-title">All News Updates</h2>
+                <p class="section-subtitle">The complete feed of updates from all our clubs.</p>
+            </div>
+            <div id="all-news-feed" class="modal-body"></div>
+            <button id="close-news-modal" class="modal-close-btn">
+                <i data-lucide="x" style="width: 2rem; height: 2rem;"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-container" class="modal-overlay">
+            <div id="modal-content" class="modal-card">
+                <div class="modal-header">
+                    <h2>Event Registration Form</h2>
+                    <button id="close-modal-btn" onclick="closeModal(event)" class="close-button">&times;</button>
+                </div>
+
+                <form id="event-form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" id="registration-name" name="name" required class="form-input"
+                                placeholder="Name">
+                        </div>
+
+                         <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="registration-email" name="email" readonly class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="cancel-btn" onclick="closeModal(event)" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" id="modal-registration-btn" onclick="registration(event)" class="custom-button">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

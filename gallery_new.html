@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClubHub Gallery</title>
+    <link rel="stylesheet" href="gallery_new.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, collection, query, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+
+        // Set Firebase Log Level for debugging
+        setLogLevel('Debug');
+
+        // Global variables provided by the Canvas environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth, storage, userId;
+
+        // Initialize Firebase services
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            storage = getStorage(app);
+            
+            // --- Authentication and Setup ---
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    document.getElementById('user-id-display').textContent = userId;
+                    console.log('User authenticated:', userId);
+                    // Start listeners once authenticated
+                    window.startGalleryListeners(db, storage, userId, appId);
+                } else {
+                    // Sign in using custom token or anonymously if token is missing
+                    try {
+                        if (initialAuthToken) {
+                            const userCredential = await signInWithCustomToken(auth, initialAuthToken);
+                            userId = userCredential.user.uid;
+                        } else {
+                            const userCredential = await signInAnonymously(auth);
+                            userId = userCredential.user.uid;
+                        }
+                        document.getElementById('user-id-display').textContent = userId;
+                        console.log('Authentication successful. User ID:', userId);
+                        // Start listeners once authenticated
+                        window.startGalleryListeners(db, storage, userId, appId);
+                    } catch (error) {
+                        console.error('Authentication error:', error);
+                        // Fallback to anonymous UUID if Firebase auth fails completely
+                        userId = crypto.randomUUID();
+                        document.getElementById('user-id-display').textContent = userId + ' (Anon)';
+                        window.startGalleryListeners(db, storage, userId, appId);
+                    }
+                }
+            });
+            
+        } catch (e) {
+            console.error('Firebase Initialization Failed:', e);
+            document.getElementById('gallery-grid').innerHTML = '<p class="error">Failed to initialize Firebase. Check console for details.</p>';
+        }
+        
+        // Expose Firebase functions globally for gallery.js
+        window.firebaseDependencies = {
+            db, auth, storage, userId, appId,
+            ref, uploadBytesResumable, getDownloadURL,
+            collection, query, onSnapshot, addDoc, serverTimestamp,
+            getAuth, getFirestore, getStorage
+        };
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand">ClubHub</div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="clubs.html">Clubs</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="gallery.html" class="active-link">Gallery</a></li>
+            </ul>
+            <div class="user-profile-nav">
+                <span class="abc"><span id="user-id-display">abc</span></span>
+                <a href="profile.html" class="profile-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user" style="width: 1.5rem; height: 1.5rem; color: #475569;" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header-card">
+            <h1>Club & Event Gallery</h1>
+            <p>Share photos from recent club meetings, workshops, and campus events.</p>
+        </div>
+        
+        <!-- Upload Section -->
+        <div class="upload-area-card">
+            <h2>Upload Photos</h2>
+            <div id="drop-area" class="drop-area">
+                <input type="file" id="fileElem" multiple accept="image/*" style="display: none;">
+                <label for="fileElem" class="upload-label">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & Drop images here, or click to browse</p>
+                </label>
+            </div>
+            
+            <!-- Upload Modal/Progress (Hidden by default) -->
+            <div id="upload-modal" class="upload-modal hidden">
+                <h3>Uploading...</h3>
+                <input type="text" id="image-caption" placeholder="Enter a caption (e.g., Robotics Workshop 2025)" maxlength="100">
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                    <span id="progress-text" class="progress-text">0%</span>
+                </div>
+                <button id="start-upload-btn" class="btn btn-primary">Start Upload</button>
+            </div>
+            
+        </div>
+
+        <!-- Gallery Display Section -->
+        <div class="gallery-card">
+            <h2>Recent Submissions</h2>
+            <div id="gallery-grid" class="gallery-grid">
+                <!-- Images will be injected here by JavaScript -->
+                <div class="loading-message">
+                    <i class="fas fa-spinner fa-spin"></i> Loading photos...
+                </div>
+            </div>
+            
+            <p id="empty-gallery-msg" class="empty-gallery-message hidden">No photos found. Be the first to upload one!</p>
+        </div>
+    </main>
+    
+    <script src="gallery_new.js" type="module"></script>
+</body>
+</html>
