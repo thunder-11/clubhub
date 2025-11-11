@@ -1,0 +1,303 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                     CLUBHUB - COMPLETE NAVIGATION MAP                        ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+                              ┌─────────────┐
+                              │ index.html  │
+                              │ (Homepage)  │
+                              └──────┬──────┘
+                                     │
+                 ┌───────────────────┼───────────────────┬────────────────┐
+                 │                   │                   │                │
+        ┌────────▼─────────┐  ┌─────▼────────┐  ┌──────▼────────┐  ┌────▼──────────┐
+        │  Header Links    │  │ Footer Links │  │ Auth Section  │  │ Club Section  │
+        ├──────────────────┤  ├──────────────┤  ├───────────────┤  ├───────────────┤
+        │ Home (#home)     │  │ Home         │  │ Login Button  │  │ Tech Titans   │
+        │ Events (#events) │  │ Events       │  │ ↓             │  │ ↓             │
+        │ Clubs (#clubs)   │  │ Clubs        │  │ login.html    │  │ tech-titans   │
+        │ Gallery          │  │ Gallery      │  │ ↕             │  │ .html         │
+        │ ↓                │  │ Winners      │  │ register.html │  │               │
+        │ gallery_new.html │  │ Tech Titans  │  │ ↓             │  │ + Projects    │
+        │ Winners (#lead)  │  │ Admin Portal │  │ index.html ✓  │  │ + Council     │
+        └──────────────────┘  └──────────────┘  └───────────────┘  │ + Gallery     │
+                                                                     │ + Feedback    │
+                                                                     └───────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         AUTHENTICATION FLOW                                  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+                          ┌─────────────────┐
+                          │ Visit index.html│
+                          │  (Guest Mode)   │
+                          └────────┬────────┘
+                                   │
+                          ┌────────▼────────┐
+                          │ Login Button    │
+                          └────────┬────────┘
+                                   │
+                    ┌──────────────┼──────────────┐
+                    │                             │
+            ┌───────▼──────┐          ┌──────────▼──────┐
+            │ login.html   │          │ register.html   │
+            │ Enter Email  │          │ Create Account  │
+            │ Enter Pass   │          │ Enter Email     │
+            └───────┬──────┘          │ Enter Password  │
+                    │                 │ Confirm Pass    │
+                    │                 └────────┬────────┘
+                    │                          │
+            ┌───────▼──────────────────────────▼─────┐
+            │  Firebase Auth (Email & Password)      │
+            │  ✓ User Created                        │
+            │  ✓ Session Started                     │
+            └───────┬──────────────────────────────────┘
+                    │
+                    ▼
+            ┌──────────────────┐
+            │ index.html       │
+            │ (User Mode)      │
+            │ ✓ Profile Icon   │
+            │ ✓ Register Ready │
+            └─────┬────────────┘
+                  │
+        ┌─────────┼─────────┬──────────┐
+        │         │         │          │
+    ┌───▼──┐ ┌───▼──┐ ┌────▼───┐ ┌───▼───┐
+    │Clubs │ │Events│ │Gallery │ │Profile│
+    └──────┘ └──────┘ └────────┘ └───────┘
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         EVENT REGISTRATION FLOW                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+    ┌─────────────────────────────────────────────┐
+    │ View Event on:                              │
+    │ • index.html#events                         │
+    │ • tech-titans.html#events                   │
+    └────────────────────┬────────────────────────┘
+                         │
+                    ┌────▼────┐
+                    │ Click   │
+                    │Register │
+                    └────┬────┘
+                         │
+                ┌────────▼────────┐
+                │ Auth Check      │
+                └────────┬────────┘
+                         │
+            ┌────────────┴────────────┐
+            │                         │
+       ┌────▼─────┐          ┌───────▼──────┐
+       │Logged In?│          │Logged In?    │
+       │   NO     │          │   YES        │
+       └────┬─────┘          └───────┬──────┘
+            │                        │
+            │                    ┌───▼──────────────┐
+            │                    │ Show Confirmation│
+            │                    │ Modal            │
+            │                    └───┬──────────────┘
+            │                        │
+     ┌──────▼──────┐          ┌──────▼────────┐
+     │ Redirect to │          │ Confirm       │
+     │ login.html  │          │ Registration  │
+     └─────────────┘          └──────┬────────┘
+                                     │
+                            ┌────────▼────────┐
+                            │ Save to Firebase│
+                            │ • registrations │
+                            └────────┬────────┘
+                                     │
+                            ┌────────▼─────────┐
+                            │ Show Success     │
+                            │ Modal w/ PDF     │
+                            │ Token            │
+                            └────────┬─────────┘
+                                     │
+                            ┌────────▼────────┐
+                            │ Visible in:      │
+                            │ profile.html     │
+                            │ >My Activity     │
+                            │ >Registered      │
+                            └──────────────────┘
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    ADMIN MANAGEMENT WORKFLOW                                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+    ┌──────────────────────────┐
+    │ Admin Logs In            │
+    │ • login.html             │
+    │ • Email + Admin Role     │
+    └────────────┬─────────────┘
+                 │
+           ┌─────▼──────┐
+           │admin.html  │
+           │(Dashboard) │
+           └─────┬──────┘
+                 │
+    ┌────────────┼────────────┬────────────┬───────────┐
+    │            │            │            │           │
+┌───▼────┐  ┌────▼─────┐ ┌──▼──────┐ ┌──▼──────┐ ┌───▼───┐
+│ Events │  │Registrat-│ │  News   │ │ Gallery │ │Feedback│
+│CRUD    │  │ions      │ │Management│ │  Upload │ │& Suggest│
+├────────┤  ├──────────┤ ├─────────┤ ├────────┤ ├───────┤
+│Create  │  │View All  │ │Post News│ │Upload  │ │Review │
+│ Event  │  │Users     │ │Updates  │ │Photos  │ │All    │
+│        │  │          │ │         │ │        │ │Feedback│
+│Edit    │  │Mark      │ │Delete   │ │Delete  │ │       │
+│ Event  │  │Attendance│ │News     │ │Photos  │ │Reply  │
+│        │  │          │ │         │ │        │ │to     │
+│Delete  │  │Delete    │ │         │ │        │ │Feedback│
+│ Event  │  │Registration         │ │        │ │       │
+└────────┘  └──────────┘ └─────────┘ └────────┘ └───────┘
+    │             │           │           │         │
+    │             │           │           │         │
+    └─────────────┴───────────┴───────────┴─────────┘
+                         │
+                    ┌────▼─────┐
+                    │ Firebase  │
+                    │ Firestore │
+                    └───────────┘
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    USER PROFILE ACCESS FLOW                                  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+    Any Page (When Logged In)
+            │
+            │ Profile Icon (Top Right)
+            │ with Dropdown Menu
+            ▼
+    ┌──────────────────┐
+    │ Dropdown Menu    │
+    ├──────────────────┤
+    │ • My Profile     │
+    │   ↓              │
+    │   profile.html   │
+    │ • Logout         │
+    │   ↓              │
+    │   Sign Out       │
+    │   Redirect:      │
+    │   index.html     │
+    └──────────────────┘
+
+    profile.html Structure:
+    ├── Profile Header
+    │   └─ Avatar, Name, Email, Bio
+    ├── My Activity Dashboard
+    │   ├─ Registered Events
+    │   ├─ My Clubs
+    │   └─ Event History
+    ├── Achievements & Skills
+    │   ├─ Digital Badges
+    │   └─ Acquired Skills
+    ├── My Projects
+    ├── Participation Stats
+    │   ├─ Events Attended
+    │   ├─ Workshops Completed
+    │   └─ Seminars Attended
+    ├── My Contributions
+    │   ├─ Feedback History
+    │   └─ Suggestions Log
+    ├── My Calendar
+    └── Settings
+        ├─ Edit Profile
+        └─ Notifications Toggle
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    GALLERY UPLOAD PROCESS                                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+    gallery_new.html
+    │
+    ├─ Upload Section
+    │  ├─ Drag & Drop Area
+    │  │  OR Click to Browse
+    │  ├─ Select Image(s)
+    │  │
+    │  ├─ Enter Caption
+    │  │
+    │  └─ Click Upload
+    │
+    └─ Firebase Storage
+       │
+       ├─ Image Stored
+       │
+       └─ Display in Gallery
+          ├─ Visible to All Users
+          ├─ Admin can Delete
+          └─ Shows Creator Info
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    DIRECT LINK REFERENCE TABLE                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+HOME PAGE SECTIONS:
+├─ /index.html#home        → Hero section
+├─ /index.html#events      → Events section
+├─ /index.html#clubs       → Clubs section
+├─ /index.html#leaderboard → Hall of Fame
+
+PAGE LINKS:
+├─ /index.html        → Homepage
+├─ /login.html        → Sign In
+├─ /register.html     → Sign Up
+├─ /profile.html      → User Profile (Auth Required)
+├─ /admin.html        → Admin Dashboard (Admin Only)
+├─ /gallery.html      → Old Gallery
+├─ /gallery_new.html  → New Gallery
+└─ /tech-titans.html  → Tech Titans Club
+
+TECH TITANS SECTIONS:
+├─ /tech-titans.html#about    → About club
+├─ /tech-titans.html#events   → Club events
+├─ /tech-titans.html#projects → Projects
+├─ /tech-titans.html#council  → Council
+├─ /tech-titans.html#gallery  → Gallery
+└─ /tech-titans.html#feedback → Feedback form
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    RESPONSIVE DESIGN BREAKPOINTS                            ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Mobile (<640px)
+├─ Hamburger Menu
+├─ Single Column Layout
+└─ Stacked Navigation
+
+Tablet (640px - 1024px)
+├─ Sidebar Visible
+├─ Two Column Layout
+└─ Partial Navigation
+
+Desktop (>1024px)
+├─ Full Navigation
+├─ Multi-Column Layout
+└─ All Features Visible
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                          STATUS SUMMARY                                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✅ Navigation              → COMPLETE
+✅ Authentication         → COMPLETE
+✅ Page Linking           → COMPLETE
+✅ Footer Navigation      → COMPLETE
+✅ Mobile Responsiveness  → COMPLETE
+✅ Firebase Integration   → COMPLETE
+✅ User Flows             → COMPLETE
+✅ Admin Panel            → COMPLETE
+✅ Gallery System         → COMPLETE
+✅ Club Pages             → COMPLETE (Tech Titans)
+✅ Documentation          → COMPLETE
+
+═══════════════════════════════════════════════════════════════════════════════
+                       ALL PAGES FULLY INTERCONNECTED ✓
+═══════════════════════════════════════════════════════════════════════════════

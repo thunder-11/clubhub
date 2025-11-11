@@ -1,0 +1,305 @@
+═══════════════════════════════════════════════════════════════════════════
+                    CLUBHUB - WEBSITE SITEMAP & STRUCTURE
+═══════════════════════════════════════════════════════════════════════════
+
+ROOT LEVEL PAGES:
+┌─────────────────────────────────────────────────────────────────────────┐
+│ index.html               → Homepage / Main Dashboard                      │
+│ login.html              → User Sign-In Page                              │
+│ register.html           → User Registration Page                         │
+│ profile.html            → User Profile (Auth Required)                   │
+│ admin.html              → Admin Management Dashboard                     │
+│ gallery.html            → Old Gallery (Static)                           │
+│ gallery_new.html        → New Gallery (Dynamic, Firebase)                │
+│ tech-titans.html        → Tech Titans Club Page                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+ASSET FILES:
+├── styles.css            → Main stylesheet
+├── main.js               → Main JavaScript file
+├── gallery_new.css       → Gallery styling
+├── gallery_new.js        → Gallery JavaScript
+└── README.md             → Project documentation
+
+FIREBASE CONNECTED:
+├── index.html            (Events, News, Winners, Registrations)
+├── profile.html          (User Data, Activity, Feedback)
+├── admin.html            (All CRUD Operations)
+├── gallery_new.html      (Image Uploads)
+├── tech-titans.html      (Events, Feedback, Suggestions)
+└── login.html / register.html (Authentication)
+
+═══════════════════════════════════════════════════════════════════════════
+                        NAVIGATION HIERARCHY
+═══════════════════════════════════════════════════════════════════════════
+
+HEADER NAVIGATION (All Pages):
+┌──────────────────────────────────────┐
+│         index.html#home              │
+│              ↓                       │
+│         CLUBHUB LOGO                 │
+│         ↙   ↓   ↓   ↓   ↘           │
+│    Home Events Clubs Gallery Winners │
+│    │     │      │     │      │       │
+│    ↓     ↓      ↓     ↓      ↓       │
+│   index#home #events #clubs  #leaderboard
+│                  │
+│              gallery_new.html
+│
+│    Profile / Login Button (Top Right)
+└──────────────────────────────────────┘
+
+MAIN CONTENT SECTIONS (index.html):
+┌────────────────────────────────────────┐
+│ 1. Hero Section                         │
+│ 2. All Events & Workshops              │
+│    ├─ Upcoming Events                  │
+│    ├─ Ongoing Events                   │
+│    └─ Past Events                      │
+│ 3. Featured Clubs                      │
+│    └─ Tech Titans ──→ tech-titans.html │
+│    └─ [Other Clubs]                    │
+│ 4. Latest News                         │
+│ 5. Hall of Fame (Winners)              │
+│ 6. Event Snapshots (Gallery)           │
+│    └─ View Gallery ──→ gallery_new.html│
+└────────────────────────────────────────┘
+
+AUTHENTICATION FLOW:
+┌─────────────────────┐
+│   index.html        │
+│  (Guest Mode)       │
+│   Login Button      │
+│        ↓            │
+│   login.html ←──────┤─→ register.html
+│   ↓            New Account    ↑
+│ Authenticate                 Sign Up
+│   ↓                          ↓
+│ Success ─────────────────→ Redirect to
+│   ↓                       login.html
+│ index.html          ↑
+│ (User Mode) ────────┴─→ Enter Credentials
+│   ↓
+│ Profile Icon
+│   ↓
+│ profile.html
+└─────────────────────┘
+
+USER PROFILE PAGE (profile.html):
+┌────────────────────────────────────────┐
+│ User Header (Avatar, Name, Email)      │
+├────────────────────────────────────────┤
+│ LEFT COLUMN:                           │
+│ ├─ My Activity Dashboard               │
+│ │  ├─ Registered Events                │
+│ │  ├─ My Clubs                         │
+│ │  └─ Event History (Attended)         │
+│ ├─ Achievements & Skills               │
+│ │  ├─ Digital Badges                   │
+│ │  └─ Acquired Skills                  │
+│ └─ My Projects Showcase                │
+│    ├─ Project 1                        │
+│    └─ Project 2                        │
+├────────────────────────────────────────┤
+│ RIGHT COLUMN:                          │
+│ ├─ Participation Stats                 │
+│ │  ├─ Events Attended                  │
+│ │  ├─ Workshops Completed              │
+│ │  └─ Seminars Attended                │
+│ ├─ My Contributions                    │
+│ │  ├─ Feedback History                 │
+│ │  └─ Suggestions Log                  │
+│ ├─ My Calendar                         │
+│ │  └─ Event dates highlighted          │
+│ └─ Settings                            │
+│    ├─ Edit Profile                     │
+│    └─ Event Reminders Toggle           │
+└────────────────────────────────────────┘
+
+ADMIN DASHBOARD (admin.html):
+┌─────────────────────────────────────────┐
+│ Sidebar Menu:                           │
+│ ├─ EVENTS                               │
+│ ├─ REGISTRATIONS                        │
+│ ├─ NEWS & UPDATES                       │
+│ ├─ MEDIA GALLERY                        │
+│ ├─ SUGGESTION                           │
+│ ├─ FEEDBACK                             │
+│ └─ WINNERS                              │
+├─────────────────────────────────────────┤
+│ Main Content (Changes per selection):   │
+│ ├─ Create/Edit/Delete Events            │
+│ ├─ View User Registrations              │
+│ │  └─ Mark Attendance                   │
+│ ├─ Post News                            │
+│ ├─ Upload Gallery Media                 │
+│ ├─ Respond to Suggestions               │
+│ ├─ Respond to Feedback                  │
+│ └─ Announce Winners                     │
+└─────────────────────────────────────────┘
+
+TECH TITANS CLUB PAGE (tech-titans.html):
+┌──────────────────────────────────────┐
+│ Club Header with Logo                │
+├──────────────────────────────────────┤
+│ 1. About Section                     │
+│    ├─ Club Description               │
+│    ├─ Key Achievements               │
+│    └─ Club Domains                   │
+│ 2. Events Section (Tabs)             │
+│    ├─ Upcoming Events                │
+│    ├─ Ongoing Events                 │
+│    └─ Past Events                    │
+│ 3. Projects Showcase                 │
+│    ├─ Project 1                      │
+│    ├─ Project 2                      │
+│    └─ Project 3                      │
+│ 4. Meet the Council                  │
+│    ├─ President                      │
+│    ├─ Vice President                 │
+│    ├─ Tech Head                      │
+│    └─ Events Head                    │
+│ 5. Member Testimonials               │
+│ 6. Photo Gallery                     │
+│ 7. Feedback & Suggestions Modal       │
+│    ├─ Post-Event Feedback            │
+│    └─ Future Suggestions             │
+└──────────────────────────────────────┘
+
+GALLERY (gallery_new.html):
+┌──────────────────────────────────────┐
+│ Upload Photos Section                │
+│ ├─ Drag & Drop Area                  │
+│ ├─ Caption Input                     │
+│ └─ Start Upload Button               │
+├──────────────────────────────────────┤
+│ Recent Submissions                   │
+│ ├─ Photo Grid (Responsive)           │
+│ ├─ Photo Captions                    │
+│ └─ Delete Options (Admin)            │
+└──────────────────────────────────────┘
+
+FOOTER LINKS (All Pages):
+┌──────────────────────────────────────────┐
+│ Column 1:          Column 2:             │
+│ ├─ ClubHub         ├─ Navigate          │
+│ └─ About           │  ├─ Home           │
+│                    │  ├─ Events         │
+│ Column 3:          │  ├─ Clubs          │
+│ ├─ Resources       │  ├─ Gallery        │
+│ │ ├─ Tech Titans   │  └─ Winners        │
+│ │ ├─ Guidelines    │                    │
+│ │ └─ Admin Portal  │                    │
+│ └─ Social Links    │                    │
+│    ├─ Twitter      │                    │
+│    ├─ Instagram    │                    │
+│    └─ LinkedIn     │                    │
+└──────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+                    FIREBASE COLLECTIONS STRUCTURE
+═══════════════════════════════════════════════════════════════════════════
+
+Firestore Database:
+├── events/
+│   ├── [eventId]
+│   │   ├─ title
+│   │   ├─ description
+│   │   ├─ date
+│   │   ├─ time
+│   │   ├─ club
+│   │   ├─ eventType (Workshop/Seminar/Event/Hackathon)
+│   │   ├─ venue
+│   │   ├─ fees
+│   │   └─ participants[]
+│   └── [eventId2]...
+│
+├── registrations/
+│   ├── [regId]
+│   │   ├─ userId
+│   │   ├─ userName
+│   │   ├─ userEmail
+│   │   ├─ eventId
+│   │   ├─ eventName
+│   │   ├─ eventDate
+│   │   ├─ club
+│   │   ├─ registeredAt
+│   │   ├─ attendance (Present/Absent)
+│   │   └─ tokenId
+│   └── [regId2]...
+│
+├── feedback/
+│   ├── [feedbackId]
+│   │   ├─ userId
+│   │   ├─ userName
+│   │   ├─ userEmail
+│   │   ├─ club
+│   │   ├─ eventName
+│   │   ├─ feedback
+│   │   ├─ submittedAt
+│   │   ├─ status (new/replied)
+│   │   └─ reply
+│   └── [feedbackId2]...
+│
+├── suggestions/
+│   ├── [suggestionId]
+│   │   ├─ userId
+│   │   ├─ userName
+│   │   ├─ userEmail
+│   │   ├─ club
+│   │   ├─ suggestionType
+│   │   ├─ suggestion
+│   │   ├─ submittedAt
+│   │   ├─ status (new/replied)
+│   │   └─ reply
+│   └── [suggestionId2]...
+│
+├── news/
+│   ├── [newsId]
+│   │   ├─ title
+│   │   ├─ content
+│   │   ├─ category (Announcement/Achievement/Update)
+│   │   └─ date
+│   └── [newsId2]...
+│
+├── gallery/
+│   ├── [photoId]
+│   │   ├─ imageUrl
+│   │   ├─ caption
+│   │   ├─ category
+│   │   └─ uploadedAt
+│   └── [photoId2]...
+│
+└── winners/
+    ├── [winnerId]
+    │   ├─ name
+    │   ├─ event
+    │   ├─ position (1st/2nd/3rd/consolation/special)
+    │   ├─ description
+    │   └─ createdAt
+    └── [winnerId2]...
+
+═══════════════════════════════════════════════════════════════════════════
+                         DIRECT LINKS REFERENCE
+═══════════════════════════════════════════════════════════════════════════
+
+INDEX LINKS:
+└─ index.html#home        → Hero/Home section
+└─ index.html#events      → Events section
+└─ index.html#clubs       → Clubs section
+└─ index.html#leaderboard → Winners/Hall of Fame
+
+EXTERNAL PAGE LINKS:
+├─ gallery_new.html       → New Gallery (Primary)
+├─ gallery.html           → Old Gallery (Backup)
+├─ tech-titans.html       → Tech Titans Club
+├─ login.html             → Sign In
+├─ register.html          → Sign Up
+├─ profile.html           → User Profile
+└─ admin.html             → Admin Dashboard
+
+CLUB PAGE LINKS (From index.html#clubs):
+├─ tech-titans.html       → Tech Titans (Full Page)
+└─ #clubs                 → Others (Return to club section)
+
+═══════════════════════════════════════════════════════════════════════════
