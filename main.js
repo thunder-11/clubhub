@@ -1,11 +1,4 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase configuration (compat CDN loaded in HTML)
 const firebaseConfig = {
   apiKey: "AIzaSyDrawO7KtgK6xe9zioTJ851ii_OmQwgL5E",
   authDomain: "eventms-3f505.firebaseapp.com",
@@ -17,11 +10,13 @@ const firebaseConfig = {
   measurementId: "G-V6MP0Q86JT"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Initialize Firebase using compat global
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+try { firebase.analytics(); } catch(e) { /* analytics not loaded on all pages */ }
 
-const auth = firebase.auth()
+const auth = firebase.auth();
 const db = firebase.database();
 
 let emailv = null;
@@ -198,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
       eventForm.reset();
-      closeModal();
+      CloseModal();
     });
   }
 
@@ -237,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     <p style="font-weight: 600; color: #1e293b; text-align: right;">${eventval.fees || 'Free'}</p>
                                 </div>
                                 </div>
-                                <button id="event-detail-register-btn" style="width: 100%; background-color: #4f46e5; color: white; font-weight: 700; padding: 0.75rem 1.5rem; border-radius: 0.5rem; margin-top: 1.5rem; transition: background-color 0.3s; cursor: pointer; border: none;" id="registration-btn" data-id="${snapshot.key}" onclick="openModal(event)">Register Now</button>
+                                <button id="event-detail-register-btn" style="width: 100%; background-color: #4f46e5; color: white; font-weight: 700; padding: 0.75rem 1.5rem; border-radius: 0.5rem; margin-top: 1.5rem; transition: background-color 0.3s; cursor: pointer; border: none;" data-id="${snapshot.key}" onclick="openModal(event)">Register Now</button>
                             `;
         lucide.createIcons();
       } else {
@@ -263,6 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loading() {
+    if (!eventContainer) return;
     let dbref = null;
     eventContainer.innerHTML = "";
     if (fileName() == "index.html" || isDirectory()) {
@@ -362,7 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
   } */
 
   window.checkAdmin = function () {
-    if (userData.admin && userData.admin == true) {
+    if (userData && userData.admin && userData.admin == true) {
       window.location.href = 'admin.html';
     } else {
       window.location.href = 'index.html';
@@ -407,8 +403,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   window.openDetails = function (event) {
-    const target = event.target;
-    const eventID = target.getAttribute('data-id');
+    const target = event.target.closest('[data-id]');
+    const eventID = target ? target.getAttribute('data-id') : null;
 
     if (eventID) {
       window.location.href = `eventdetails.html?id=${eventID}`;
@@ -418,9 +414,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   window.openModal = function (event) {
-    const target = event.target;
+    const target = event.target.closest('[data-id]');
     modalContainer.classList.add('is-visible');
-    modalRegistrationButton.setAttribute('data-id', target.getAttribute('data-id'));
+    if (target) {
+      modalRegistrationButton.setAttribute('data-id', target.getAttribute('data-id'));
+    }
   };
 
   window.closeModal = function (event) {
