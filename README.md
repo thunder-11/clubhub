@@ -16,7 +16,6 @@ A modern, full-featured campus event management platform built for students and 
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_Site-4f46e5?style=for-the-badge)](https://thunder-11.github.io/clubhub/)
 [![GitHub Stars](https://img.shields.io/github/stars/thunder-11/clubhub?style=for-the-badge&color=ec4899)](https://github.com/thunder-11/clubhub/stargazers)
 [![Last Commit](https://img.shields.io/github/last-commit/thunder-11/clubhub?style=for-the-badge&color=0284c7)](https://github.com/thunder-11/clubhub/commits/main)
-[![MIT License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
 
 <br/>
 
@@ -184,45 +183,10 @@ users/
 
 <br/>
 
-## 🗺️ Roadmap
-
-- [x] User authentication (login / register)
-- [x] Real-time event listing
-- [x] Event registration with duplicate prevention
-- [x] Admin panel with role-based access
-- [ ] 🔔 Email notifications on registration
-- [ ] 🔍 Event search & tag filtering
-- [ ] 📊 Admin analytics dashboard
-- [ ] 🖼️ Event banner image upload
-- [ ] 📲 PWA support (installable + offline)
-- [ ] 🌙 Dark / Light mode toggle
-
-<br/>
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-1. **Fork** the repo
-2. **Create** your feature branch: `git checkout -b feature/amazing-feature`
-3. **Commit** your changes: `git commit -m 'Add amazing feature'`
-4. **Push** to the branch: `git push origin feature/amazing-feature`
-5. **Open** a Pull Request
-
-<br/>
-
-## 📄 License
-
-This project is licensed under the **MIT License** — free to use, modify, and distribute.
-
-<br/>
-
 ---
 
 <div align="center">
 
 Made with ❤️ for campus communities everywhere
-
-**⭐ Star this repo if ClubHub helped you! ⭐**
 
 </div>
